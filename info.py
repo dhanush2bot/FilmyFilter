@@ -15,7 +15,7 @@ def is_enabled(value, default):
 SESSION = environ.get('SESSION', 'Media_search')
 API_ID = int(environ.get('API_ID', '23081466'))
 API_HASH = environ.get('API_HASH', 'dbc665db1489f9d3cfd8de4a52f1ad4b')
-BOT_TOKEN = environ.get('BOT_TOKEN', "6682891424:AAEANvOGcll8eCwRme9QRkif6FSyk3autuY")
+BOT_TOKEN = environ.get('BOT_TOKEN', "6825398442:AAGJwhtYeegKlzHe2SmNhnrDfufB31gXREE")
 
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -49,8 +49,8 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 # Others
 VERIFY = bool(environ.get('VERIFY', True))
-SHORTLINK_URL = environ.get('SHORTLINK_URL', 'shareus.io')
-SHORTLINK_API = environ.get('SHORTLINK_API', '0ft2s2mKCHOaLUKDZCcnDXCt8O63')
+SHORTLINK_URL = environ.get('SHORTLINK_URL', 'instantearn.in')
+SHORTLINK_API = environ.get('SHORTLINK_API', 'cb4c61dbfb6bc7b23011c6bb84fbc79e5a3fb105')
 IS_SHORTLINK = bool(environ.get('IS_SHORTLINK', False))
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '0').split()]
 MAX_B_TN = environ.get("MAX_B_TN", "5")
