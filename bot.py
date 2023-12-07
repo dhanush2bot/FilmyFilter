@@ -1,13 +1,3 @@
-import logging
-import logging.config
-
-# Get logging configurations
-logging.config.fileConfig("logging.conf")
-logging.getLogger().setLevel(logging.INFO)
-logging.getLogger("cinemagoer").setLevel(logging.ERROR)
-logger = logging.getLogger(__name__)
-
-
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from database.ia_filterdb import Media
@@ -21,6 +11,13 @@ from datetime import date, datetime
 import pytz
 from aiohttp import web
 from plugins import web_server
+import logging
+import logging.config
+import sys  # Import the sys module
+
+# Get logging configurations
+logging.config.fileConfig("logging.conf")
+logger = logging.getLogger(__name__)
 
 class Bot(Client):
 
@@ -46,9 +43,9 @@ class Bot(Client):
         temp.U_NAME = me.username
         temp.B_NAME = me.first_name
         self.username = '@' + me.username
-        logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
-        logging.info(LOG_STR)
-        logging.info(script.LOGO)
+        logger.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
+        logger.info(LOG_STR)
+        logger.info(script.LOGO)
         tz = pytz.timezone('Asia/Kolkata')
         today = date.today()
         now = datetime.now(tz)
@@ -61,7 +58,7 @@ class Bot(Client):
 
     async def stop(self, *args):
         await super().stop()
-        logging.info("Bot stopped. Bye.")
+        logger.info("Bot stopped. Bye.")
 
     async def iter_messages(
         self,
@@ -69,29 +66,6 @@ class Bot(Client):
         limit: int,
         offset: int = 0,
     ) -> Optional[AsyncGenerator["types.Message", None]]:
-        """Iterate through a chat sequentially.
-        This convenience method does the same as repeatedly calling :meth:`~pyrogram.Client.get_messages` in a loop, thus saving
-        you from the hassle of setting up boilerplate code. It is useful for getting the whole chat messages with a
-        single call.
-        Parameters:
-            chat_id (``int`` | ``str``):
-                Unique identifier (int) or username (str) of the target chat.
-                For your personal cloud (Saved Messages) you can simply use "me" or "self".
-                For a contact that exists in your Telegram address book you can use his phone number (str).
-                
-            limit (``int``):
-                Identifier of the last message to be returned.
-                
-            offset (``int``, *optional*):
-                Identifier of the first message to be returned.
-                Defaults to 0.
-        Returns:
-            ``Generator``: A generator yielding :obj:`~pyrogram.types.Message` objects.
-        Example:
-            .. code-block:: python
-                for message in app.iter_messages("pyrogram", 1, 15000):
-                    print(message.text)
-        """
         current = offset
         while True:
             new_diff = min(200, limit - current)
@@ -103,5 +77,6 @@ class Bot(Client):
                 current += 1
 
 
-app = Bot()
-app.run()
+if __name__ == "__main__":
+    app = Bot()
+    app.run()
